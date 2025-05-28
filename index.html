@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Literary Brew - Where Stories Meet Sips</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c1810;
+            background: linear-gradient(135deg, #f5f1eb 0%, #e8dcc0 100%);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Animated Header */
+        header {
+            background: linear-gradient(135deg, #3a2317 0%, #5d4037 50%, #8d6e63 100%);
+            color: #f5f1eb;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 10px rgba(245,241,235,0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(245,241,235,0.6); }
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #f5f1eb;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            background: rgba(245,241,235,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><defs><pattern id="bookPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="%23d7ccc8"/><rect x="10" y="20" width="15" height="60" fill="%238d6e63" rx="2"/><rect x="30" y="15" width="15" height="70" fill="%235d4037" rx="2"/><rect x="50" y="25" width="15" height="50" fill="%23a1887f" rx="2"/><rect x="70" y="10" width="15" height="75" fill="%236d4c41" rx="2"/></pattern></defs><rect width="1200" height="800" fill="url(%23bookPattern)"/></svg>') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            color: white;
+            max-width: 800px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255,107,53,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #f7931e, #ff6b35);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255,107,53,0.6);
+        }
+
+        /* Floating Books Animation */
+        .floating-book {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255,255,255,0.6);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .floating-book:nth-child(1) { top: 20%; left: 10%; animation-delay: 0s; }
+        .floating-book:nth-child(2) { top: 60%; right: 15%; animation-delay: 2s; }
+        .floating-book:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 4s; }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: #f5f1eb;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #3a2317;
+            position: relative;
+        }
+
+        .features h2::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            margin: 1rem auto;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,107,53,0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+            opacity: 0;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+            top: -100%;
+            left: -100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #3a2317;
+        }
+
+        /* Menu Section */
+        .menu {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%);
+            color: white;
+        }
+
+        .menu h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .menu-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .menu-item:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .menu-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ff6b35;
+        }
+
+        .price {
+            float: right;
+            font-weight: bold;
+            color: #f7931e;
+        }
+
+        /* Events Section */
+        .events {
+            padding: 5rem 0;
+            background: #f5f1eb;
+        }
+
+        .events h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            color: #3a2317;
+        }
+
+        .event-card {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-left: 5px solid #ff6b35;
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .event-date {
+            color: #ff6b35;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #3a2317;
+            color: #f5f1eb;
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ff6b35;
+        }
+
+        .social-links a {
+            color: #f5f1eb;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #ff6b35;
+            transform: scale(1.2);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .features h2, .menu h2, .events h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">📚 The Literary Brew</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#features">Features</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="floating-book">📖</div>
+        <div class="floating-book">📚</div>
+        <div class="floating-book">📓</div>
+        <div class="hero-content">
+            <h1>Where Stories Meet Sips</h1>
+            <p>Discover your next favorite book while savoring artisan coffee in our cozy literary haven</p>
+            <a href="#features" class="cta-button">Start Your Chapter</a>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="fade-in">Why Book Lovers Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">📚</span>
+                    <h3>Curated Book Collection</h3>
+                    <p>Browse our carefully selected library of classics, bestsellers, and hidden gems while you sip your coffee. Free to read, yours to discover.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">☕</span>
+                    <h3>Literary-Inspired Beverages</h3>
+                    <p>Try our signature drinks named after famous authors and books. From "Hemingway's Bold Brew" to "Austen's Earl Grey Latte."</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">🛋️</span>
+                    <h3>Reading Nooks</h3>
+                    <p>Cozy armchairs, perfect lighting, and quiet corners designed for hours of comfortable reading. Each spot tells its own story.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">👥</span>
+                    <h3>Book Club Meetings</h3>
+                    <p>Join our weekly book discussions, author readings, and literary events. Connect with fellow bibliophiles in our community.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">📝</span>
+                    <h3>Writers' Corner</h3>
+                    <p>Dedicated quiet spaces for writers, with power outlets, strong WiFi, and an inspiring atmosphere to fuel your creativity.</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <span class="feature-icon">🎧</span>
+                    <h3>Literary Soundscape</h3>
+                    <p>Ambient sounds of turning pages, gentle classical music, and the perfect background noise for deep reading focus.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu" class="menu">
+        <div class="container">
+            <h2 class="fade-in">Literary Menu</h2>
+            <div class="menu-grid">
+                <div class="menu-item fade-in">
+                    <h3>The Gatsby <span class="price">$5.50</span></h3>
+                    <p>Golden espresso with a touch of glamour - vanilla and gold leaf garnish</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Sherlock's Deduction <span class="price">$4.75</span></h3>
+                    <p>Dark roast coffee with mysterious notes of chocolate and spice</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Hermione's Butterbeer Latte <span class="price">$6.25</span></h3>
+                    <p>Magical butterscotch latte topped with whipped cream clouds</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Pride & Prejudice Tea <span class="price">$4.00</span></h3>
+                    <p>Elegant Earl Grey blend with bergamot and lavender</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Moby Dick Mocha <span class="price">$5.75</span></h3>
+                    <p>Deep sea chocolate mocha with white chocolate whale art</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Alice's Wonder-Chai <span class="price">$5.25</span></h3>
+                    <p>Curious chai blend with unexpected spices and color-changing foam</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Tolkien's Elevenses <span class="price">$8.50</span></h3>
+                    <p>Coffee & pastry combo fit for hobbits - scone, jam, and house blend</p>
+                </div>
+                <div class="menu-item fade-in">
+                    <h3>Poe's Raven Roast <span class="price">$4.50</span></h3>
+                    <p>Dark as midnight, bold as poetry - our strongest brew</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="events">
+        <div class="container">
+            <h2 class="fade-in">Upcoming Literary Events</h2>
+            <div class="event-card fade-in">
+                <div class="event-date">Friday, June 7th - 7:00 PM</div>
+                <h3>Mystery Book Club: "The Thursday Murder Club"</h3>
+                <p>Join us for lively discussion, themed snacks, and detective-worthy coffee. New members welcome!</p>
+            </div>
+            <div class="event-card fade-in">
+                <div class="event-date">Saturday, June 15th - 2:00 PM</div>
+                <h3>Poetry Reading & Coffee Cupping</h3>
+                <p>Local poets share their work while we explore different coffee origins. A feast for all the senses.</p>
+            </div>
+            <div class="event-card fade-in">
+                <div class="event-date">Wednesday, June 19th - 6:30 PM</div>
+                <h3>Author Spotlight: Sarah Chen</h3>
+                <p>Meet bestselling novelist Sarah Chen as she discusses her latest work and signs copies of her new book.</p>
+            </div>
+            <div class="event-card fade-in">
+                <div class="event-date">Sunday, June 23rd - 10:00 AM</div>
+                <h3>Silent Reading Hour</h3>
+                <p>Pure, distraction-free reading time with complimentary coffee. Bring your book or choose from our collection.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Visit Us</h3>
+                    <p>123 Literary Lane<br>
+                    Booktown, BK 12345<br>
+                    (555) READ-BREW</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Hours</h3>
+                    <p>Monday - Friday: 6:00 AM - 10:00 PM<br>
+                    Saturday - Sunday: 7:00 AM - 11:00 PM<br>
+                    <em>Extended hours during book events</em></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <div class="social-links">
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="Facebook">📘</a>
+                        <a href="#" title="Twitter">🐦</a>
+                        <a href="#" title="Goodreads">📖</a>
+                    </div>
+                </div>
+            </div>
+            <p>&copy; 2025 The Literary Brew. Where every cup tells a story.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add floating animation to hero books
+        const floatingBooks = document.querySelectorAll('.floating-book');
+        floatingBooks.forEach((book, index) => {
+            book.style.animationDelay = `${index * 2}s`;
+        });
+
+        // Dynamic header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(58, 35, 23, 0.95)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #3a2317 0%, #5d4037 50%, #8d6e63 100%)';
+            }
+        });
+
+        // Interactive menu items
+        document.querySelectorAll('.menu-item').forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) rotate(1deg)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotate(0deg)';
+            });
+        });
+
+        // Add typing effect to hero title
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize typing effect after page load
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.textContent;
+            setTimeout(() => {
+                typeWriter(heroTitle, originalText, 100);
+            }, 500);
+        });
+    </script>
+</body>
+</html>
